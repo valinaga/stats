@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <style>
+      tr, td { color:#222; text-align: right; text-align: right; }
+    </style>
+    <p>Salut <%= @client[:name] %>, </p>
+    <%@clients.each do |c| %>
+      <h1>Aplicatia <%= Client::Lookup.key(c.sku).titleize %>:</h1>
+      <table width="100%" >
+        <tr><td colspan="4"><h3>iPhone/iPad</h3></td></tr>
+        <tr><%=result_html(c.weekly_itunes).html_safe%></tr>
+
+        <tr><td>&nbsp;</td></tr>
+
+        <tr><td colspan="4"><h3>Android</h3></td></tr>
+        <tr><%=result_html(c.weekly_android).html_safe%></tr>
+
+        <tr><td>&nbsp;</td></tr>
+
+        <tr><td colspan="4"><h2>Total: <%=  number_with_precision(c.weekly_itunes.pop[:units]+c.weekly_android.pop[:units], :precision => 0, :delimiter => ',')%></h2></td></tr>
+      </table>
+      <p>&nbsp;</p>
+    <%end%>
+  </body>
+</html>
